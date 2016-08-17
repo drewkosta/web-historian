@@ -17,3 +17,8 @@ if (module.parent) {
   console.log('Listening on http://' + ip + ':' + port);
 }
 
+// web
+// User places text input into search form that is generated through index.html
+// We quickly read archives/sites.txt (use fs.readFile to help with this)
+  // if we have that corresponding url in our archives/sites.txt file then redirect
+  // otherwise write it in
