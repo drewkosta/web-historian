@@ -15,23 +15,20 @@ exports.serveAssets = function(req, res, asset, callback) {
   // Write some code here that helps serve up your static files!
   // (Static files are things like html (yours or archived from others...),
   // css, or anything that doesn't change often.)
-  var responseBody = {
-    method: 'GET',
-    //url: req.url
-  };
+  // var responseBody = {
+  //   method: 'GET',
+  //   //url: req.url
+  // };
 
-  fs.readFile(__dirname + '/public/index.html', function(err, data) {
-    if (err) {
-      console.log('in the error area');
-      res.end('Error: ', err);
-    } else {
-      console.log("in here");
-      responseBody.data = data.toString();
-      res.writeHead(200, headers);
-      console.log(responseBody);
-      res.end(JSON.stringify(responseBody));
-    }
-  });
+  // fs.readFile(asset, function(err, data) {
+  //   if (err) {
+  //     console.log('fs error: ', err);
+  //     callback(err);
+  //   } else {
+  //     console.log(data);
+  //     callback(null, data);
+  //   }
+  // });
 };
 
 
