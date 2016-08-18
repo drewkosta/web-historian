@@ -47,7 +47,7 @@ exports.handleRequest = function (req, res) {
                 res.end(err);
               } else {
                 defaultHeaders['Content-Type'] = 'text/html';
-                res.writeHead(201, defaultHeaders);
+                res.writeHead(200, defaultHeaders);
                 res.end(data.toString());
               }
             }); 
@@ -68,7 +68,8 @@ exports.handleRequest = function (req, res) {
                   } else {
                     console.log('into redirect');
                     defaultHeaders['Content-Type'] = 'text/html';
-                    res.writeHead(201, defaultHeaders); // change to redirect to loading.html
+                    res.writeHead(302, defaultHeaders);
+                    res.setHeader('Location', '/public/loading.html');
                     res.end();
                   }
                 });

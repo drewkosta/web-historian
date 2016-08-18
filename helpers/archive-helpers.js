@@ -37,19 +37,58 @@ exports.isUrlInList = function() {
 // not needed
 
 exports.addUrlToList = function() {
+
 };
 // Just need to flip each switch from false to true in the file
 
 exports.isUrlArchived = function() {
 };
 
-exports.downloadUrls = function(options) {
-  http.request(options, function(err, data) {
-    console.log(data);
-    if (!err) {
-      fs.writeFile(__dirname + '/../archives/sites/' + options.host + '.html', data, function (err) {});
+exports.downloadUrls = function() {
+  fs.readFile(__dirname + '/../archives/sites.txt', function (err, data) {
+    var list = JSON.parse(data);
+    for (var key in list) {
+      if (list[key] === false) {
+        var options = {
+          host: key,
+          port: 80,
+          path: '/index.html'
+        };
+        var content = '';
+        http.get(options, function(res, data) {
+          res.setEncoding('utf8');
+          res.on('data', function (chunk) {
+            content += chunk;
+          });
+          res.on('end', function () {
+            console.log(content);
+            fs.writeFile(__dirname + '/../archives/sites/' + options.host + '.html', content, function () {
+              fs.readFile(__dirname + '/../archives/sites.txt', function (err, data) {
+                if (err) {
+                  res.end(err);
+                } else {
+                  var realObject = JSON.parse(data);
+                  realObject[key] = true;
+                  console.log(realObject);
+                  fs.writeFile(__dirname + '/../archives/sites.txt', JSON.stringify(realObject), function (err) {
+                    if (err) {
+                      res.end(err);
+                    }
+                  });
+                }
+              }); 
+            });
+          });
+        });
+      }
     }
   });
 };
 
-// exports.downloadUrls({host: 'www.google.com'});
+
+
+
+
+
+
+
