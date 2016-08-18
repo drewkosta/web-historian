@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
+var http = require('http');
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -27,15 +28,28 @@ exports.initialize = function(pathsObj) {
 
 exports.readListOfUrls = function() {
 };
+// read through
+// grab all with value false
+// store into its own object
 
 exports.isUrlInList = function() {
 };
+// not needed
 
 exports.addUrlToList = function() {
 };
+// Just need to flip each switch from false to true in the file
 
 exports.isUrlArchived = function() {
 };
 
-exports.downloadUrls = function() {
+exports.downloadUrls = function(options) {
+  http.request(options, function(err, data) {
+    console.log(data);
+    if (!err) {
+      fs.writeFile(__dirname + '/../archives/sites/' + options.host + '.html', data, function (err) {});
+    }
+  });
 };
+
+// exports.downloadUrls({host: 'www.google.com'});

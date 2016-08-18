@@ -42,7 +42,7 @@ exports.handleRequest = function (req, res) {
           // IF WE ALREADY HAVE A CACHED VERSION
           if (fileData[qString]) {
             console.log('eval true');
-            fs.readFile(__dirname + '/../archives/sites' + qString + '.html', function (err, data) {
+            fs.readFile(__dirname + '/../archives/sites/' + qString + '.html', function (err, data) {
               if (err) {
                 res.end(err);
               } else {
